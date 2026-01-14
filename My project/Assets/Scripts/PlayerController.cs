@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public float runAcceleration = 0.25f;
     public float runSpeed = 4f;
 
+    //public float drag = 0.1f;
+
     private PlayerLocomotionInput _playerLocomotionInput;
 
     private void Awake()
@@ -22,6 +24,10 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movementDelta = movementDirection * runAcceleration * Time.deltaTime;
         Vector3 newVelocity = _characterController.velocity + movementDelta;
+
+        /*Vector3 currentDrag = newVelocity.normalized * drag * Time.deltaTime;
+        newVelocity = (newVelocity.magnitude > drag * Time.deltaTime) ? newVelocity - currentDrag : Vector3.zero;
+        newVelocity = Vector3.ClampMagnitude(newVelocity, runSpeed);*/
 
         _characterController.Move(newVelocity * Time.deltaTime);
     }
