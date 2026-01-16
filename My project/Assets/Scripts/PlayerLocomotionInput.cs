@@ -1,13 +1,17 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[DefaultExecutionOrder(-2)]
 public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerLocomotionMapActions
 {
     public InputSystem_Actions PlayerControls { get; private set; }
     public Vector2 MovementInput { get; private set; }
+    public Vector2 LookInput { get; private set; }
+
     private Animator animator;
     private float XDirection = 0f;
     private float YDirection = 0f;
+    private float Velocity = 0f;
 
     private void Awake()
     {
@@ -30,17 +34,47 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerL
     public void OnNewaction(InputAction.CallbackContext context)
     {
         MovementInput = context.ReadValue<Vector2>();
-        print(MovementInput);
         XDirection = context.ReadValue<Vector2>().x;
         YDirection = context.ReadValue<Vector2>().y;
+        //Velocity = (XDirection + YDirection) / 2;
+        print(MovementInput);
         if (XDirection != 0f || YDirection != 0f)
         {
-            animator.SetBool("isWalking", true);
+            animator.SetFloat("Velocity", 0.5f);
         }
         else
         {
-            animator.SetBool("isWalking", false);
+            animator.SetFloat("Velocity", 0f);
         }
 
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        LookInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnDance(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            animator.SetBool("isDancing", true);
+        }
+        else
+        {
+            animator.SetBool("isDancing", false) ;
+        }
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            animator.SetBool("Jump", true) ;
+        }
+        else
+        {
+            animator.SetBool("Jump", false ) ;
+        }
     }
 }
