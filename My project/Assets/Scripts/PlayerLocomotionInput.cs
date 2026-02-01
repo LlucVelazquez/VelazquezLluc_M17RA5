@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerLocomotionMapActions
 {
     public InputSystem_Actions PlayerControls { get; private set; }
-    private Gun _gun;
+    public bool Shoot { get; private set; }
     public Vector2 MovementInput { get; private set; }
     public Vector2 LookInput { get; private set; }
 
@@ -17,7 +17,6 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerL
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        _gun = GetComponent<Gun>();
     }
     private void OnEnable()
     {
@@ -84,8 +83,8 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerL
     {
         if (context.performed)
         {
-            _gun.Shoot();
-            Debug.Log("Shoot");
+            Debug.Log("click");
+            Shoot = true;
         }
     }
 
