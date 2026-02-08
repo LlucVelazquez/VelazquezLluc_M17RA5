@@ -7,6 +7,7 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerL
     [SerializeField] private bool _holdToSprint = true;
     public InputSystem_Actions PlayerControls { get; private set; }
     public bool Shoot { get; private set; }
+    public bool Aim { get; private set; } = false;
     public Vector2 MovementInput { get; private set; }
     public Vector2 LookInput { get; private set; }
     public bool SprintToggledOn { get; private set; }
@@ -102,6 +103,18 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerL
         {
             SprintToggledOn = !_holdToSprint && SprintToggledOn;
             animator.SetFloat("Velocity", _stateAnim);
+        }
+    }
+
+    public void OnRightClick(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Aim = true;
+        }
+        else
+        {
+            Aim = false;
         }
     }
 }

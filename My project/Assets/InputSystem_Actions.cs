@@ -618,6 +618,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""RightClick"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""9682743b-de23-419a-9d09-9600277c0154"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Look"",
                     ""type"": ""Value"",
                     ""id"": ""4fff0d41-565b-45d4-9b93-47a6b326ea8b"",
@@ -776,6 +785,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""d3e0a78b-1ee5-49d6-a2f9-a7f491c0ea12"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""RightClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""9c2873fc-a804-4794-a5c0-2eb5109a8a4f"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
@@ -910,6 +930,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         // PlayerLocomotionMap
         m_PlayerLocomotionMap = asset.FindActionMap("PlayerLocomotionMap", throwIfNotFound: true);
         m_PlayerLocomotionMap_Newaction = m_PlayerLocomotionMap.FindAction("New action", throwIfNotFound: true);
+        m_PlayerLocomotionMap_RightClick = m_PlayerLocomotionMap.FindAction("RightClick", throwIfNotFound: true);
         m_PlayerLocomotionMap_Look = m_PlayerLocomotionMap.FindAction("Look", throwIfNotFound: true);
         m_PlayerLocomotionMap_Dance = m_PlayerLocomotionMap.FindAction("Dance", throwIfNotFound: true);
         m_PlayerLocomotionMap_Jump = m_PlayerLocomotionMap.FindAction("Jump", throwIfNotFound: true);
@@ -1192,6 +1213,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerLocomotionMap;
     private List<IPlayerLocomotionMapActions> m_PlayerLocomotionMapActionsCallbackInterfaces = new List<IPlayerLocomotionMapActions>();
     private readonly InputAction m_PlayerLocomotionMap_Newaction;
+    private readonly InputAction m_PlayerLocomotionMap_RightClick;
     private readonly InputAction m_PlayerLocomotionMap_Look;
     private readonly InputAction m_PlayerLocomotionMap_Dance;
     private readonly InputAction m_PlayerLocomotionMap_Jump;
@@ -1212,6 +1234,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "PlayerLocomotionMap/Newaction".
         /// </summary>
         public InputAction @Newaction => m_Wrapper.m_PlayerLocomotionMap_Newaction;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerLocomotionMap/RightClick".
+        /// </summary>
+        public InputAction @RightClick => m_Wrapper.m_PlayerLocomotionMap_RightClick;
         /// <summary>
         /// Provides access to the underlying input action "PlayerLocomotionMap/Look".
         /// </summary>
@@ -1261,6 +1287,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Newaction.started += instance.OnNewaction;
             @Newaction.performed += instance.OnNewaction;
             @Newaction.canceled += instance.OnNewaction;
+            @RightClick.started += instance.OnRightClick;
+            @RightClick.performed += instance.OnRightClick;
+            @RightClick.canceled += instance.OnRightClick;
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
@@ -1290,6 +1319,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Newaction.started -= instance.OnNewaction;
             @Newaction.performed -= instance.OnNewaction;
             @Newaction.canceled -= instance.OnNewaction;
+            @RightClick.started -= instance.OnRightClick;
+            @RightClick.performed -= instance.OnRightClick;
+            @RightClick.canceled -= instance.OnRightClick;
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
@@ -1495,6 +1527,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnNewaction(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RightClick" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRightClick(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

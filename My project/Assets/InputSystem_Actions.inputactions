@@ -532,6 +532,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "RightClick",
+                    "type": "PassThrough",
+                    "id": "9682743b-de23-419a-9d09-9600277c0154",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Look",
                     "type": "Value",
                     "id": "4fff0d41-565b-45d4-9b93-47a6b326ea8b",
@@ -687,6 +696,17 @@
                     "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "d3e0a78b-1ee5-49d6-a2f9-a7f491c0ea12",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "RightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
