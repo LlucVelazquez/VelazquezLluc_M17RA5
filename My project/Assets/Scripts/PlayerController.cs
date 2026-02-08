@@ -1,5 +1,6 @@
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [DefaultExecutionOrder(-1)]
 public class PlayerController : MonoBehaviour
@@ -10,10 +11,13 @@ public class PlayerController : MonoBehaviour
 
     public float runAcceleration = 0.25f;
     public float runSpeed = 4f;
+    public float sprintSpeed = 8f;
+    public float jumpForce = 5f;
     //public float drag = 0.1f;
     [Header("Camera Settings")]
-    /*public float lookSense = 0.1f;
-    public float lookLimitV = 89f;*/
+    private float _lookSense = 0.1f;
+    private float _lookLimitV = 89f;
+    private Vector3 _cameraRotation;
 
     private PlayerLocomotionInput _playerLocomotionInput;
     /*private Vector2 _cameraRotation;
@@ -26,27 +30,29 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        Move();
+        Rotation();
+    }
+    private void Move()
+    {
         Vector3 cameraForwardXZ = new Vector3(_playerCamera.transform.forward.x, 0f, _playerCamera.transform.forward.z).normalized;
         Vector3 cameraRightXZ = new Vector3(_playerCamera.transform.right.x, 0f, _playerCamera.transform.right.z).normalized;
         Vector3 movementDirection = cameraForwardXZ * _playerLocomotionInput.MovementInput.y + cameraRightXZ * _playerLocomotionInput.MovementInput.x;
 
-        Vector3 movementDelta = movementDirection * runAcceleration;
-        Vector3 newVelocity = _characterController.velocity + movementDelta;
+        float currentRunSpeed = (_playerLocomotionInput.SprintToggledOn) ? sprintSpeed : runSpeed;
 
-        /*Vector3 currentDrag = newVelocity.normalized * drag;
-        newVelocity = (newVelocity.magnitude > drag) ? newVelocity - currentDrag : Vector3.zero;
-        newVelocity = Vector3.ClampMagnitude(newVelocity, runSpeed);*/
+        Vector3 newVelocity = movementDirection * currentRunSpeed;
 
         _characterController.Move(newVelocity * Time.deltaTime);
     }
 
-    private void LateUpdate()
+    private void Rotation()
     {
-        /*_cameraRotation.x += lookSense * _playerLocomotionInput.LookInput.x;
-        _cameraRotation.y -= lookSense * _playerLocomotionInput.LookInput.y;
-        _cameraRotation.y = Mathf.Clamp(_cameraRotation.y, -lookLimitV, lookLimitV);
+        _cameraRotation.x += _playerLocomotionInput.LookInput.x * _lookSense;
+        _cameraRotation.y -= _playerLocomotionInput.LookInput.y * _lookSense;
+        _cameraRotation.y = Mathf.Clamp(_cameraRotation.y, -_lookLimitV, _lookLimitV);
 
         _playerCamera.transform.localRotation = Quaternion.Euler(_cameraRotation.y, 0f, 0f);
-        transform.localRotation = Quaternion.Euler(0f, _cameraRotation.x, 0f);*/
+        transform.localRotation = Quaternion.Euler(0f, _cameraRotation.x, 0f);
     }
 }

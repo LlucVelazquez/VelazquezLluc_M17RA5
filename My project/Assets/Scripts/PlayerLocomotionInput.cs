@@ -4,15 +4,16 @@ using UnityEngine.InputSystem;
 [DefaultExecutionOrder(-2)]
 public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerLocomotionMapActions
 {
+    [SerializeField] private bool _holdToSprint = true;
     public InputSystem_Actions PlayerControls { get; private set; }
     public bool Shoot { get; private set; }
     public Vector2 MovementInput { get; private set; }
     public Vector2 LookInput { get; private set; }
-
+    public bool SprintToggledOn { get; private set; }
     private Animator animator;
     private float XDirection = 0f;
     private float YDirection = 0f;
-    private float Velocity = 0f;
+    private float _stateAnim;
 
     private void Awake()
     {
@@ -42,10 +43,12 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerL
         if (XDirection != 0f || YDirection != 0f)
         {
             animator.SetFloat("Velocity", 0.5f);
+            _stateAnim = 0.5f;
         }
         else
         {
             animator.SetFloat("Velocity", 0f);
+            _stateAnim = 0;
         }
 
     }
@@ -90,6 +93,15 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerL
 
     public void OnSprint(InputAction.CallbackContext context)
     {
-        throw new System.NotImplementedException();
+        if (context.performed)
+        {
+            SprintToggledOn = _holdToSprint || !SprintToggledOn;
+            animator.SetFloat("Velocity", 1f);
+        }
+        else if (context.canceled)
+        {
+            SprintToggledOn = !_holdToSprint && SprintToggledOn;
+            animator.SetFloat("Velocity", _stateAnim);
+        }
     }
 }
