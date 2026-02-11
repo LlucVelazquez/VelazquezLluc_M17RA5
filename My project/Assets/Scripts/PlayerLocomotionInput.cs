@@ -7,6 +7,7 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerL
     [SerializeField] private bool _holdToSprint = true;
     public InputSystem_Actions PlayerControls { get; private set; }
     public bool Shoot { get; private set; }
+    public bool Jump { get; private set; }
     public bool Aim { get; private set; } = false;
     public Vector2 MovementInput { get; private set; }
     public Vector2 LookInput { get; private set; }
@@ -33,7 +34,10 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerL
         PlayerControls.PlayerLocomotionMap.Disable();
         PlayerControls.PlayerLocomotionMap.RemoveCallbacks(this);
     }
-
+    private void LateUpdate()
+    {
+        Jump = false;
+    }
     public void OnNewaction(InputAction.CallbackContext context)
     {
         MovementInput = context.ReadValue<Vector2>();
@@ -76,6 +80,7 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerL
         if(context.performed)
         {
             animator.SetBool("Jump", true) ;
+                Jump = true;
         }
         else
         {
