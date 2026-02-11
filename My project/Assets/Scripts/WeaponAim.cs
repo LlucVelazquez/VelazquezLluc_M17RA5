@@ -12,6 +12,7 @@ public class WeaponAim : MonoBehaviour
     public float hipFOV = 60f;
     public float aimFOV = 40f;
     private PlayerLocomotionInput _playerLocomotionInput;
+    public MultiPerspectiveCamera _multiperspectiveCamera;
     private void Awake()
     {
         _playerLocomotionInput = GetComponent<PlayerLocomotionInput>();
@@ -21,11 +22,21 @@ public class WeaponAim : MonoBehaviour
     {
         if (_playerLocomotionInput.Aim)
         {
+            if (_multiperspectiveCamera != null)
+            {
+                _multiperspectiveCamera.ChangePerspective(false);
+            }
             Aim();
+            
         }
         else
         {
+            if (_multiperspectiveCamera != null)
+            {
+                _multiperspectiveCamera.ChangePerspective(true);
+            }
             StopAiming();
+            
         }
     }
 

@@ -85,7 +85,7 @@ public class MultiPerspectiveCamera : MonoBehaviour
         CalculateNearPlaneSize();
     }
 
-    void ChangePerspective(bool ThirdPerson)
+    public void ChangePerspective(bool ThirdPerson)
     {
         if (ThirdPerson)
         {

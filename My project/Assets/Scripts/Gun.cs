@@ -5,7 +5,7 @@ public class Gun : MonoBehaviour
     public float damage = 10f;
     public float range = 100f;
     public Camera fpsCam;
-    public int maxAmmo = 10;
+    //public int maxAmmo = 10;
     private int currentAmmo;
     private PlayerLocomotionInput _playerLocomotionInput;
 
@@ -15,18 +15,18 @@ public class Gun : MonoBehaviour
     }
     private void Start()
     {
-        currentAmmo = maxAmmo;
+        //currentAmmo = maxAmmo;
     }
     private void Update()
     {
-        if(currentAmmo <=0)
+        /*if(currentAmmo <=0)
         {
             return;
-        }
+        }*/
         if (_playerLocomotionInput.Shoot)
         {
             Shoot();
-            currentAmmo--;
+            //currentAmmo--;
         }
     }
     public void Shoot()

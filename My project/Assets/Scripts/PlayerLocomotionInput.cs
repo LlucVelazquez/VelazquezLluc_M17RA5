@@ -6,9 +6,10 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerL
 {
     [SerializeField] private bool _holdToSprint = true;
     public InputSystem_Actions PlayerControls { get; private set; }
-    public bool Shoot { get; private set; }
+    public bool Shoot { get; private set; } = false;
     public bool Jump { get; private set; }
     public bool Aim { get; private set; } = false;
+    public bool IsDancing { get; private set; } = false;
     public Vector2 MovementInput { get; private set; }
     public Vector2 LookInput { get; private set; }
     public bool SprintToggledOn { get; private set; }
@@ -36,6 +37,7 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerL
     }
     private void LateUpdate()
     {
+        Shoot = false;
         Jump = false;
     }
     public void OnNewaction(InputAction.CallbackContext context)
@@ -68,10 +70,12 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerL
         if (context.performed)
         {
             animator.SetBool("isDancing", true);
+                IsDancing = true;
         }
         else
         {
             animator.SetBool("isDancing", false) ;
+                    IsDancing = false;
         }
     }
 
@@ -85,6 +89,7 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerL
         else
         {
             animator.SetBool("Jump", false ) ;
+                Jump = false;
         }
     }
 
@@ -115,11 +120,8 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerL
     {
         if (context.performed)
         {
-            Aim = true;
+            Aim = !Aim;
         }
-        else
-        {
-            Aim = false;
-        }
+        
     }
 }
