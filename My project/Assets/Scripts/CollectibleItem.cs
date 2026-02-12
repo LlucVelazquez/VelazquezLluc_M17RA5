@@ -11,7 +11,7 @@ public class CollectibleItem : MonoBehaviour
             if (inventory != null)
             {
                 inventory.PickUpObject(); 
-                Destroy(gameObject); 
+                gameObject.SetActive(false);
             }
         }
     }

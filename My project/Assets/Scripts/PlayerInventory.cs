@@ -2,14 +2,22 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public bool hasObject = false; 
-    public GameObject selecteableObject; 
+    public bool hasObject; 
+    public GameObject selecteableObject;
+    public GameObject inventoryObject;
 
     void Start()
     {
         if (selecteableObject != null)
         {
             selecteableObject.SetActive(false);
+        }
+    }
+    private void Update()
+    {
+        if (hasObject)
+        {
+            inventoryObject.SetActive(true);
         }
     }
 

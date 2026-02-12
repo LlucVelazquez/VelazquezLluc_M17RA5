@@ -35,6 +35,17 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerL
         PlayerControls.PlayerLocomotionMap.Disable();
         PlayerControls.PlayerLocomotionMap.RemoveCallbacks(this);
     }
+    private void Update()
+    {
+        if (Aim)
+        {
+            animator.SetBool("Aim", true);
+        }
+        else
+        {
+            animator.SetBool("Aim", false);
+        }
+    }
     private void LateUpdate()
     {
         Shoot = false;
