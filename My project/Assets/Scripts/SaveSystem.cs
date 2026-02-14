@@ -9,6 +9,7 @@ public class SaveSystem : MonoBehaviour
     private void Start()
     {
         LoadGame();
+        //DeleteSaveData();
     }
 
     public void SaveGame()

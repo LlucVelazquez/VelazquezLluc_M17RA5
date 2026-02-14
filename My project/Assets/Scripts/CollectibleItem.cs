@@ -13,6 +13,10 @@ public class CollectibleItem : MonoBehaviour
                 inventory.PickUpObject(); 
                 gameObject.SetActive(false);
             }
+            if (inventory.hasObject)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }

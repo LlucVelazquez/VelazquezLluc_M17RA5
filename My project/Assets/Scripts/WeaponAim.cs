@@ -5,6 +5,8 @@ public class WeaponAim : MonoBehaviour
     public Transform weaponTransform; 
     public Vector3 hipPosition;     
     public Vector3 aimPosition;
+    public Vector3 hipRotation;
+    public Vector3 aimRotation;
 
     public float aimSpeed = 10f;
 
@@ -43,6 +45,7 @@ public class WeaponAim : MonoBehaviour
     public void Aim()
     {
         weaponTransform.localPosition = Vector3.Lerp(weaponTransform.localPosition, aimPosition, Time.deltaTime * aimSpeed);
+        weaponTransform.localRotation = Quaternion.Lerp(weaponTransform.localRotation, Quaternion.Euler(aimRotation), Time.deltaTime * aimSpeed);
 
         if (mainCamera != null)
             mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, aimFOV, Time.deltaTime * aimSpeed);
@@ -51,6 +54,7 @@ public class WeaponAim : MonoBehaviour
     public void StopAiming()
     {
         weaponTransform.localPosition = Vector3.Lerp(weaponTransform.localPosition, hipPosition, Time.deltaTime * aimSpeed);
+        weaponTransform.localRotation = Quaternion.Lerp(weaponTransform.localRotation, Quaternion.Euler(hipRotation), Time.deltaTime * aimSpeed);
 
         if (mainCamera != null)
             mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, hipFOV, Time.deltaTime * aimSpeed);

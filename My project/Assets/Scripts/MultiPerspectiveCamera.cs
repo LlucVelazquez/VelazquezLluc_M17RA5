@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class MultiPerspectiveCamera : MonoBehaviour
 {
+    private PlayerInventory _playerInventory;
     public bool tPerson = true;
     [Header("Objetivos de cámara")]
     public Transform tpTarget;
@@ -15,6 +16,7 @@ public class MultiPerspectiveCamera : MonoBehaviour
     public GameObject playerMesh;
     // Para la bota que molesta
     public GameObject playerMesh2;
+    public GameObject playerMesh3;
     [Space(5)]
     private Vector2 angle = new Vector2(90 * Mathf.Deg2Rad, 0);
     private new Camera camera;
@@ -38,9 +40,9 @@ public class MultiPerspectiveCamera : MonoBehaviour
 
     [Tooltip("Tecla por defecto si no se asigna un Input Asset")]
     public Key defaultSwitchKey = Key.Q;
-
     private void Awake()
     {
+            _playerInventory = GetComponentInParent<PlayerInventory>();
         if (lookAction == null || lookAction.bindings.Count == 0)
         {
             lookAction = new InputAction("Look", binding: "<Mouse>/delta");
@@ -94,6 +96,11 @@ public class MultiPerspectiveCamera : MonoBehaviour
             {
                 playerMesh.SetActive(true);
                 playerMesh2.SetActive(true);
+                if (_playerInventory.hasObject)
+                {
+                    playerMesh3.SetActive(true);
+                }
+                
             }
             tPerson = true;
         }
@@ -104,6 +111,7 @@ public class MultiPerspectiveCamera : MonoBehaviour
             {
                 playerMesh.SetActive(false);
                 playerMesh2.SetActive(false);
+                playerMesh3.SetActive(false);
             }
             tPerson = false;
         }

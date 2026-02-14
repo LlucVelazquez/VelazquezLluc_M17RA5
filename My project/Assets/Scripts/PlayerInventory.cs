@@ -13,22 +13,24 @@ public class PlayerInventory : MonoBehaviour
             selecteableObject.SetActive(false);
         }
     }
-    private void Update()
+    private void Awake()
     {
         if (hasObject)
         {
-            inventoryObject.SetActive(true);
+            //inventoryObject.SetActive(true);
+            selecteableObject.SetActive(false);
         }
     }
 
     public void PickUpObject()
     {
         hasObject = true;
+        inventoryObject.SetActive(true);
         Debug.Log("¡Objeto recogido!");
-
+        /*
         if (selecteableObject != null)
         {
             selecteableObject.SetActive(true);
-        }
+        }*/
     }
 }
