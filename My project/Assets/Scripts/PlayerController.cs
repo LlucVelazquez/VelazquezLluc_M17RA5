@@ -82,7 +82,6 @@ public class PlayerController : MonoBehaviour
     }
     private void Jump()
     {
-        // Solo saltamos si se pulsa el botón, estamos en el suelo y NO estamos ya saltando
         if (_playerLocomotionInput.Jump && _characterController.isGrounded && !_isJumping)
         {
             StartCoroutine(PerformDelayedJump());
