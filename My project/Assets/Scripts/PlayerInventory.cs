@@ -5,6 +5,7 @@ public class PlayerInventory : MonoBehaviour
     public bool hasObject; 
     public GameObject selecteableObject;
     public GameObject inventoryObject;
+    public GameObject botaHead;
 
     void Start()
     {
@@ -13,12 +14,13 @@ public class PlayerInventory : MonoBehaviour
             selecteableObject.SetActive(false);
         }
     }
-    private void Awake()
+    void Update()
     {
         if (hasObject)
         {
             //inventoryObject.SetActive(true);
             selecteableObject.SetActive(false);
+            botaHead.SetActive(false);
         }
     }
 
